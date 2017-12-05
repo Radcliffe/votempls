@@ -2,6 +2,7 @@
 #' @description This data set contains ranked choice ballots for the 2013 and 2017 Minneapolis municipal elections
 #' @format A data frame with 930145 rows and 9 variables:
 #' \describe{
+#'   \item{Id}{unique id number}
 #'   \item{Year}{election year (2013 or 2017)}
 #'   \item{City}{always equal to "Minneapolis"}
 #'   \item{Contest}{is one of the following: "Board of Estimate & Taxation",

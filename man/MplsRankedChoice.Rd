@@ -6,6 +6,7 @@
 \title{Minneapolis Ranked Choice Voting Data}
 \format{A data frame with 930145 rows and 9 variables:
 \describe{
+  \item{Id}{unique id number}
   \item{Year}{election year (2013 or 2017)}
   \item{City}{always equal to "Minneapolis"}
   \item{Contest}{is one of the following: "Board of Estimate & Taxation",
