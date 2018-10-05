@@ -11,20 +11,26 @@ R is a free software environment for statistical computation and data visualizat
 Many thousands of packages have been written to extend the power of R, and this is 
 one of them! This package requires version 2.10 or later.
 
-Install the ``devtools`` package if you haven't already.
+Install the `devtools` package if you haven't already.
 
-    > install.packages("devtools")
+```r
+install.packages("devtools")
+```
 
 Then you can install this package directly from GitHub.
 
-    > install.packages("radcliffe/votempls")
+```r
+install.packages("radcliffe/votempls")
+```
 
 ## Getting started
 
 Load the package, and then load the data.
 
-    > require("votempls")
-    > load("MplsRankedChoice")
+```r
+require("votempls")
+load("MplsRankedChoice")
+```
 
 This loads a data frame with 930145 rows and 9 variables:
 
@@ -44,7 +50,45 @@ You will probably want to select a subset of the rows. This is done most conveni
 
 Example:
 
-     > mayor2017 = dplyr::filter(MplsRankedChoice, Year == 2013, Contest == "Mayor")
+```r
+mayor2017 = dplyr::filter(MplsRankedChoice, Year == 2017, Contest == "Mayor")
+```
+
+Visualizing the data can be done in `ggplot` by melting the data with `melt()` from the `data.table` package or `gather()` from the `tidyr` package.
+
+```r
+# data.table::melt()
+library(data.table)
+mayor2017Melted <- melt(mayor2017[,c("Ward",
+                                     "FirstChoice",
+                                     "SecondChoice",
+                                     "ThirdChoice")],"Ward")
+names(mayor2017Melted) <- c("Ward","Choice","Candidate")
+# tidyr::gather()
+library(tidyr)
+mayor2017Melted <- gather(mayor2017[,c("Ward",
+                                       "FirstChoice",
+                                       "SecondChoice",
+                                       "ThirdChoice")],
+                          Choice,
+                          Candidate,
+                          -Ward)
+```
+
+```r
+library(ggplot2)
+# All Wards
+ggplot(mayor2017Melted,aes(x = Choice, y = Candidate)) +
+  geom_jitter(aes(colour = Choice), alpha = .01) +
+  theme_minimal() + theme(legend.position="none")
+
+# Compare Ward Results
+ggplot(dplyr::filter(mayor2017Melted, Ward %in% c("8","13")),
+                   aes(x = Choice, y = Candidate)) +
+  geom_jitter(aes(colour = Choice), alpha = .1) +
+  theme_minimal() + theme(legend.position="none") +
+  facet_wrap(~Ward,ncol = 2)
+```
 
 ## Source
 
