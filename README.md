@@ -54,8 +54,9 @@ Example:
 mayor2017 = dplyr::filter(MplsRankedChoice, Year == 2017, Contest == "Mayor")
 ```
 
-Visualizing the data can be done in `ggplot` by melting the data with `melt()` from the `data.table` package or `gather()` from the `tidyr` package.
+Visualizing the data can be done in `ggplot` by melting the data with `melt()` from the `data.table` package or `gather()` from the `tidyr` package. Both code blocks (melt & gather) perform the same operation.
 
+### Melt
 ```r
 # data.table::melt()
 library(data.table)
@@ -64,6 +65,10 @@ mayor2017Melted <- melt(mayor2017[,c("Ward",
                                      "SecondChoice",
                                      "ThirdChoice")],"Ward")
 names(mayor2017Melted) <- c("Ward","Choice","Candidate")
+```
+
+### Gather
+```r
 # tidyr::gather()
 library(tidyr)
 mayor2017Melted <- gather(mayor2017[,c("Ward",
@@ -75,6 +80,7 @@ mayor2017Melted <- gather(mayor2017[,c("Ward",
                           -Ward)
 ```
 
+### Plotting
 ```r
 library(ggplot2)
 # All Wards
