@@ -87,7 +87,7 @@ ggplot(dplyr::filter(mayor2017Melted, Ward %in% c("8","13")),
                    aes(x = Choice, y = Candidate)) +
   geom_jitter(aes(colour = Choice), alpha = .1) +
   theme_minimal() + theme(legend.position="none") +
-  facet_wrap(~Ward,ncol = 2)
+  facet_wrap(~Ward, ncol = 2)
 ```
 
 ## Source
